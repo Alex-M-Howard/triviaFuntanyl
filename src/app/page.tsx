@@ -29,14 +29,14 @@ export default function Home() {
       </div>
 
       <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <h1>THIS IS THE HOME PAGE</h1>
+        <ul>
+          <li>15 QUESTIONS</li>
+          <li>CATEGORY SELECT</li>
+          <li>DIFFICULTY SELECT</li>
+          <li>Type - MULTIPLE CHOICE OR BOOLEAN</li>
+          <li>START BUTTON</li>
+        </ul>
       </div>
 
       <div className={styles.grid}>
