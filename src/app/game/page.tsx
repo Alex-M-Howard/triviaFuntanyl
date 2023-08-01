@@ -20,14 +20,6 @@ export default function Game() {
     const [difficulty, setDifficulty] = useState('easy');
     const [type, setType] = useState('multiple');
 
-    const handleOptions = () => {
-        setCategory(category);
-        setDifficulty(difficulty);
-        setType(type);
-
-        console.log(category, difficulty, type);
-    }
-
     useEffect(() => {
         const fetchQuestionCount = async (categories: any[]) => {
             const updatedCategories = await Promise.all(categories.map(async (category: any) => {
@@ -53,18 +45,36 @@ export default function Game() {
         fetchCategories();
     }, []);
 
+    const handleOptions = () => {
+
+        const fetchQuestions = async () => {
+            const response = await fetch(BASE_API_URL + `?amount=${totalQuestions}&category=${category}&difficulty=${difficulty}&type=${type}`);
+            const data = await response.json();
+            const questions = data.results;
+            setQuestions(questions);
+            console.log(questions)
+        }
+
+        fetchQuestions();
+    }
+
+    if (questions.length < 1) {
+        return (
+            <Menu 
+                categories={categories} 
+                setCategory={setCategory}
+                difficulty={difficulty} 
+                setDifficulty={setDifficulty}
+                type={type}
+                setType={setType}
+                handleOptions={handleOptions}
+            />
+        )
+    }
 
     return (
         <div>
-            <Menu 
-            category={category} 
-            setCategory={setCategory}
-            difficulty={difficulty} 
-            setDifficulty={setDifficulty}
-            type={type}
-            setType={setType}
-            handleOptions={handleOptions}
-            />
+            <Question />            
             {/* <Answer /> */}
             {/* <Choice /> */}
             {/* <Question /> */}
