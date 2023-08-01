@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 
-export default function Menu({category, setCategory, difficulty, setDifficulty, type, setType, handleOptions}) {
+export default function Menu({categories, setCategory, difficulty, setDifficulty, type, setType, handleOptions}) {
 
     const handleSubmit = (evt: any) => {
         evt.preventDefault();
         handleOptions();
     }
 
+    const categoryOptions = categories.map((category: any) => {
+        return (
+            <option key={category.id} value={category.id}>{category.name}</option>
+        )
+    });
+
     return (
         <form>
+            <label htmlFor='category'>Choose a category</label>
+            <select name='category' id='category' onChange={e => setCategory(e.target.value)}>
+                <option value=''>Random mix</option>
+                {categoryOptions}
+            </select>
 
             <label htmlFor='difficulty'>Choose a difficulty</label>
             <select name='difficulty' id='difficulty' value={difficulty} onChange={e => setDifficulty(e.target.value)}>
