@@ -7,7 +7,7 @@ import Scoreboard from "./scoreboard";
 import Answer from "./answer";
 import Choice from "./choice";
 
-const NUMBER_OF_QUESTIONS: number = 15;
+const NUMBER_OF_QUESTIONS: number = 10;
 const BASE_API_URL: string = 'https://opentdb.com/api.php';
 const CATEGORIES_API_URL: string = 'https://opentdb.com/api_category.php';
 const CATEGORY_QUESTION_COUNT_API_URL: string = 'https://opentdb.com/api_count.php?category=';
@@ -19,6 +19,7 @@ export default function Game() {
     const [categories, setCategories] = useState([]);
     const [difficulty, setDifficulty] = useState('easy');
     const [type, setType] = useState('multiple');
+    const [score, setScore] = useState(0);
 
     useEffect(() => {
         const fetchQuestionCount = async (categories: any[]) => {
@@ -58,6 +59,12 @@ export default function Game() {
         fetchQuestions();
     }
 
+    if (categories.length < 1) {
+        return (
+            <div>Loading...</div>
+        )
+    }
+
     if (questions.length < 1) {
         return (
             <Menu 
@@ -72,9 +79,23 @@ export default function Game() {
         )
     }
 
+    const handleAnswer = (answer: string) => {
+        console.log(answer);
+        if (answer === questions[0].correct_answer) {
+            setScore(score + 1);
+        }
+
+        setQuestions(questions.slice(1));
+
+        if (questions.length < 1) {
+            setQuestions([]);
+        }
+        // ? DISPLAY SCORE HERE?
+    }
+
     return (
         <div>
-            <Question />            
+            <Question question={questions[0]} handleAnswer={handleAnswer}/>            
             {/* <Answer /> */}
             {/* <Choice /> */}
             {/* <Question /> */}
