@@ -1,4 +1,4 @@
-import Button from './button';
+import {Button} from '@mui/material';
 
 export default function Question({ question, handleAnswer}) {
     console.log(question)
@@ -14,7 +14,7 @@ export default function Question({ question, handleAnswer}) {
     const createButtons = (answers: any) => {
         const buttons = [];
         for (let i = 0; i < answers.length; i++) {
-            buttons.push(<Button text={answers[i]} handleAnswer={handleAnswer}/>)
+            buttons.push(<Button variant="contained" onClick={handleAnswer}>{answers[i]}</Button>)
         }
         return buttons;
     }
