@@ -22,7 +22,7 @@ interface Category {
 export default function Game(): JSX.Element {
     const [totalQuestions, setTotalQuestions] = useState<number>(NUMBER_OF_QUESTIONS);
     const [questions, setQuestions] = useState<QuestionType[]>([]);
-    const [category, setCategory] = useState<string>('');
+    const [category, setCategory] = useState<number>(0);
     const [categories, setCategories] = useState<Category[]>([]);
     const [difficulty, setDifficulty] = useState<string>('easy');
     const [type, setType] = useState<string>('multiple');
