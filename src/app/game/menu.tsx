@@ -28,7 +28,7 @@ export default function Menu({
 
     return (
         <Grid container spacing={3} direction={'column'} justifyContent={'center'} alignContent={'center'} sx={{minHeight: '100vh'}}>
-            <Grid item xs={12} sx={{maxWidth: '500px', minWidth: '300px', mx: 'auto'}}>
+            <Grid item sx={{maxWidth: '500px', minWidth: '250px', mx: 'auto'}}>
                 <FormControl fullWidth>
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
@@ -43,7 +43,7 @@ export default function Menu({
                 </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{maxWidth: '500px', minWidth: '300px', mx: 'auto'}}>
+            <Grid item sx={{maxWidth: '500px', minWidth: '250px', mx: 'auto'}}>
                 <FormControl fullWidth>
                     <InputLabel id="difficulty-label">Difficulty</InputLabel>
                     <Select
@@ -60,7 +60,7 @@ export default function Menu({
                 </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{maxWidth: '500px', minWidth: '300px', mx: 'auto'}}>
+            <Grid item sx={{maxWidth: '500px', minWidth: '250px', mx: 'auto'}}>
                 <FormControl fullWidth>
                     <InputLabel id="type-label">Type</InputLabel>
                     <Select
@@ -75,7 +75,7 @@ export default function Menu({
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sx={{maxWidth: '500px', minWidth: '300px', mx: 'auto'}}>
+            <Grid item xs={12} sx={{maxWidth: '500px', minWidth: '250px', mx: 'auto'}}>
                 <Button variant='contained' onClick={handleSubmit} sx={{width: '100%'}}>Play</Button>
             </Grid>
         </Grid>
