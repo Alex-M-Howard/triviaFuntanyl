@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {Grid, MenuItem, FormControl, InputLabel, Select, Button} from '@mui/material';
 
-export default function Menu({categories, setCategory, difficulty, setDifficulty, type, setType, handleOptions}) {
+export default function Menu({category, categories, setCategory, difficulty, setDifficulty, type, setType, handleOptions}) {
 
     const handleSubmit = (evt: any) => {
         evt.preventDefault();
@@ -9,32 +10,58 @@ export default function Menu({categories, setCategory, difficulty, setDifficulty
 
     const categoryOptions = categories.map((category: any) => {
         return (
-            <option key={category.id} value={category.id}>{category.name}</option>
+            <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
         )
     });
 
     return (
-        <form>
-            <label htmlFor='category'>Choose a category</label>
-            <select name='category' id='category' onChange={e => setCategory(e.target.value)}>
-                <option value=''>Random mix</option>
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+                labelId="category-label"
+                id="category"
+                value={category}
+                label="Category"
+                onChange={e => setCategory(e.target.value)}
+            >
                 {categoryOptions}
-            </select>
+            </Select>
+            </FormControl>
+            </Grid>
 
-            <label htmlFor='difficulty'>Choose a difficulty</label>
-            <select name='difficulty' id='difficulty' value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-                <option value='easy'>Easy</option>
-                <option value='medium'>Medium</option>
-                <option value='hard'>Hard</option>
-            </select>
+            <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+            <InputLabel id="difficulty-label">Difficulty</InputLabel>
+            <Select
+                labelId="difficulty-label"
+                id="difficulty"
+                value={difficulty}
+                label="Difficulty"
+            >
+                <MenuItem value={'easy'}>Easy</MenuItem>
+                <MenuItem value={'medium'}>Medium</MenuItem>
+                <MenuItem value={'hard'}>Hard</MenuItem>
+            </Select>
+            </FormControl>
+            </Grid>
             
-            <label htmlFor='type'>Choose a type</label>
-            <select name='type' id='type' value={type} onChange={e => setType(e.target.value)}>
-                <option value='multiple'>Multiple Choice</option>
-                <option value='boolean'>True/False</option>
-            </select>
-
-            <button onClick={handleSubmit}>Play</button>
-        </form>
+            <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+            <InputLabel id="type-label">Type</InputLabel>
+            <Select
+                labelId="type-label"
+                id="type"
+                value={type}
+                label="Type"
+            >
+                <MenuItem value={'multiple'}>Multiple Choice</MenuItem>
+                <MenuItem value={'boolean'}>True/False</MenuItem>
+            </Select>
+            </FormControl>
+            </Grid>
+            <Button onClick={handleSubmit}>Play</Button>
+        </Grid>
     )
 }

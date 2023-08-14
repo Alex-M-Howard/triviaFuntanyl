@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Menu from "./menu";
 import Question from "./question";
 import Scoreboard from "./scoreboard";
-import Answer from "./answer";
+import Answer from "./button";
 import Choice from "./choice";
 
 const NUMBER_OF_QUESTIONS: number = 10;
@@ -47,13 +47,12 @@ export default function Game() {
     }, []);
 
     const handleOptions = () => {
-
+        console.log(category, difficulty, type)
         const fetchQuestions = async () => {
             const response = await fetch(BASE_API_URL + `?amount=${totalQuestions}&category=${category}&difficulty=${difficulty}&type=${type}`);
             const data = await response.json();
             const questions = data.results;
             setQuestions(questions);
-            console.log(questions)
         }
 
         fetchQuestions();
@@ -68,6 +67,7 @@ export default function Game() {
     if (questions.length < 1) {
         return (
             <Menu 
+                category={category}
                 categories={categories} 
                 setCategory={setCategory}
                 difficulty={difficulty} 
@@ -80,7 +80,6 @@ export default function Game() {
     }
 
     const handleAnswer = (answer: string) => {
-        console.log(answer);
         if (answer === questions[0].correct_answer) {
             setScore(score + 1);
         }
@@ -92,6 +91,7 @@ export default function Game() {
         }
         // ? DISPLAY SCORE HERE?
     }
+
 
     return (
         <div>

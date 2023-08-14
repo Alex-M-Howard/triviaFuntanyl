@@ -1,3 +1,5 @@
+import Button from './button';
+
 export default function Question({ question, handleAnswer}) {
     console.log(question)
     
@@ -12,7 +14,7 @@ export default function Question({ question, handleAnswer}) {
     const createButtons = (answers: any) => {
         const buttons = [];
         for (let i = 0; i < answers.length; i++) {
-            buttons.push(<button onClick={() => handleAnswer(answers[i])}>{answers[i]}</button>)
+            buttons.push(<Button text={answers[i]} handleAnswer={handleAnswer}/>)
         }
         return buttons;
     }
@@ -20,12 +22,18 @@ export default function Question({ question, handleAnswer}) {
     
     return (
         <div>
-            <h1>Category: {question.category}</h1>
-            <h1>Difficulty: {question.difficulty}</h1>
-            <h1>Question: {question.question}</h1>
+            <div>
+                    <p>{question.category}</p>
+                    <p>Difficulty: {question.difficulty}</p>
+            </div>
+            <div>
+            <h5>{question.question}</h5>
+            </div>
 
-            {createButtons(getAnswers())}
 
+            <div>
+                {createButtons(getAnswers())}
+            </div>
         </div>
     )
 }
