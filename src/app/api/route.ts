@@ -24,11 +24,11 @@ export async function GET(req: NextRequest, res: NextResponse){
 // TODO Maybe default category should be missing so that it gets all categories
 export async function POST(req: NextRequest, res: NextResponse){
     const options: Options = await req.json();
-    const params = { ...options, amount: NUMBER_OF_QUESTIONS }
+    const params: Record<string, string | Number> ={ ...options, amount: NUMBER_OF_QUESTIONS }
     
     const url: URL = new URL(`${BASE_API_URL}`);
 
-    for(let query in params){ url.searchParams.append(query, params[query]); }
+    for(let query in params){ url.searchParams.append(query, String(params[query])); }
     
     
     const response = await fetch(url, {
