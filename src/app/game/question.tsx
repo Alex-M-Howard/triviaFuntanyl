@@ -1,17 +1,9 @@
 import {Button} from '@mui/material';
-
-type categoryQuestion = {
-    category: string,
-    type: string,
-    difficulty: string,
-    question: string,
-    correct_answer: string,
-    incorrect_answers: string[]
-}
+import QuestionType from '../../types/QuestionType';
 
 interface QuestionProps {
-    question: categoryQuestion,
-    handleAnswer: (event: React.MouseEvent<HTMLButtonElement>) => void
+    question: QuestionType,
+    handleAnswer: (answer: string) => void
 }
 
 export default function Question({ question, handleAnswer}: QuestionProps) {
@@ -28,7 +20,7 @@ export default function Question({ question, handleAnswer}: QuestionProps) {
     const createButtons = (answers: any) => {
         const buttons = [];
         for (let i = 0; i < answers.length; i++) {
-            buttons.push(<Button variant="contained" onClick={handleAnswer}>{answers[i]}</Button>)
+            buttons.push(<Button variant="contained" onClick={() => handleAnswer(answers[i])}>{answers[i]}</Button>)
         }
         return buttons;
     }

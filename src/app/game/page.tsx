@@ -4,25 +4,33 @@ import { useEffect, useState } from 'react';
 import Menu from "./menu";
 import Question from "./question";
 import Scoreboard from "./scoreboard";
-import Choice from "./choice";
+import QuestionType from "../../types/QuestionType";
 
 const NUMBER_OF_QUESTIONS: number = 10;
 const BASE_API_URL: string = 'https://opentdb.com/api.php';
 const CATEGORIES_API_URL: string = 'https://opentdb.com/api_category.php';
 const CATEGORY_QUESTION_COUNT_API_URL: string = 'https://opentdb.com/api_count.php?category=';
 
-export default function Game() {
-    const [totalQuestions, setTotalQuestions] = useState(NUMBER_OF_QUESTIONS);
-    const [questions, setQuestions] = useState([]);
-    const [category, setCategory] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [difficulty, setDifficulty] = useState('easy');
-    const [type, setType] = useState('multiple');
-    const [score, setScore] = useState(0);
+interface Category {
+    id: number;
+    name: string;
+    questionCount: number;
+}
+
+
+
+export default function Game(): JSX.Element {
+    const [totalQuestions, setTotalQuestions] = useState<number>(NUMBER_OF_QUESTIONS);
+    const [questions, setQuestions] = useState<QuestionType[]>([]);
+    const [category, setCategory] = useState<string>('');
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [difficulty, setDifficulty] = useState<string>('easy');
+    const [type, setType] = useState<string>('multiple');
+    const [score, setScore] = useState<number>(0);
 
     useEffect(() => {
-        const fetchQuestionCount = async (categories: any[]) => {
-            const updatedCategories = await Promise.all(categories.map(async (category: any) => {
+        const fetchQuestionCount = async (categories: Category[]) => {
+            const updatedCategories = await Promise.all(categories.map(async (category: Category) => {
                 const response = await fetch(CATEGORY_QUESTION_COUNT_API_URL + category.id);
                 const data = await response.json();
                 return {
@@ -37,7 +45,7 @@ export default function Game() {
         const fetchCategories = async () => {
             const response = await fetch(CATEGORIES_API_URL);
             const data = await response.json();
-            const categories = data.trivia_categories;
+            const categories: Category[] = data.trivia_categories;
             setCategories(categories);
             fetchQuestionCount(categories);
         }
@@ -50,7 +58,7 @@ export default function Game() {
         const fetchQuestions = async () => {
             const response = await fetch(BASE_API_URL + `?amount=${totalQuestions}&category=${category}&difficulty=${difficulty}&type=${type}`);
             const data = await response.json();
-            const questions = data.results;
+            const questions: QuestionType[] = data.results;
             setQuestions(questions);
         }
 
@@ -79,7 +87,7 @@ export default function Game() {
     }
 
     const handleAnswer = (answer: string) => {
-        if (answer === questions[0].correct_answer) {
+        if (questions.length > 0 && answer === questions[0].correct_answer) {
             setScore(score + 1);
         }
 
