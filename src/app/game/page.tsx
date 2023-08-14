@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Menu from "./menu";
 import Question from "./question";
 import Scoreboard from "./scoreboard";
-import Answer from "./button";
 import Choice from "./choice";
 
 const NUMBER_OF_QUESTIONS: number = 10;
