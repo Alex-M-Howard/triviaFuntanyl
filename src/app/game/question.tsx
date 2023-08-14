@@ -1,6 +1,20 @@
 import {Button} from '@mui/material';
 
-export default function Question({ question, handleAnswer}) {
+type categoryQuestion = {
+    category: string,
+    type: string,
+    difficulty: string,
+    question: string,
+    correct_answer: string,
+    incorrect_answers: string[]
+}
+
+interface QuestionProps {
+    question: categoryQuestion,
+    handleAnswer: (event: React.MouseEvent<HTMLButtonElement>) => void
+}
+
+export default function Question({ question, handleAnswer}: QuestionProps) {
     console.log(question)
     
     const getAnswers = () => {
