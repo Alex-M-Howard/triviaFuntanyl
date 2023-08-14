@@ -5,7 +5,7 @@ import Game from './game/page';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main>
      <NavBar />
 
       <div>
