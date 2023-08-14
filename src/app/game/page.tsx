@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Menu from "./menu";
 import Question from "./question";
 import Scoreboard from "./scoreboard";
+import Score from "./score";
 import QuestionType from "../../types/QuestionType";
 
 const NUMBER_OF_QUESTIONS: number = 10;
@@ -86,27 +87,19 @@ export default function Game(): JSX.Element {
         )
     }
 
+
     const handleAnswer = (answer: string) => {
-        if (questions.length > 0 && answer === questions[0].correct_answer) {
-            setScore(score + 1);
-        }
-
+        if (questions.length > 0 && answer === questions[0].correct_answer) setScore(score + 1);
+        
         setQuestions(questions.slice(1));
-
-        if (questions.length < 1) {
-            setQuestions([]);
-        }
-        // ? DISPLAY SCORE HERE?
+        if (questions.length < 1) setQuestions([]);
     }
 
 
     return (
         <div>
+            <Score score={score}/>
             <Question question={questions[0]} handleAnswer={handleAnswer}/>            
-            {/* <Answer /> */}
-            {/* <Choice /> */}
-            {/* <Question /> */}
-            {/* <Scoreboard /> */}
         </div>
     )
 }
